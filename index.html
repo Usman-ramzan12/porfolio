@@ -63,37 +63,36 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
   <style>
-    /* ── Hero portrait ── */
-    .hero-portrait { position: relative; max-width: 440px; width: 100%; margin: 0 auto; }
-    .portrait-glow { position: absolute; inset: -8%; border-radius: 40px;
-      background: radial-gradient(60% 60% at 30% 20%, rgba(99,102,241,.45), transparent 70%),
-                  radial-gradient(60% 60% at 80% 85%, rgba(6,182,212,.35), transparent 70%);
-      filter: blur(28px); z-index: 0; }
-    .portrait-frame { position: relative; z-index: 1; border-radius: 32px; padding: 3px;
-      background: linear-gradient(135deg, #818cf8, #06b6d4 60%, rgba(255,255,255,.08));
-      box-shadow: 0 30px 80px -20px rgba(0,0,0,.7); }
-    .portrait-frame img { display: block; width: 100%; height: auto; aspect-ratio: 720/750; object-fit: cover;
-      border-radius: 29px; }
-    .float-chip { position: absolute; z-index: 2; display: flex; align-items: center; gap: 10px;
-      padding: 12px 16px; border-radius: 16px; backdrop-filter: blur(14px);
-      background: rgba(12,12,22,.92); border: 1px solid rgba(129,140,248,.3); box-shadow: 0 12px 30px -10px rgba(0,0,0,.6); }
-    .chip-tl { top: 18px; left: -18px; }
-    .chip-br { bottom: 22px; right: -18px; }
-    .chip-num { font-size: 22px; font-weight: 800; line-height: 1;
-      background: linear-gradient(135deg,#a5b4fc,#06b6d4); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .chip-lbl { font-size: 12px; line-height: 1.35; color: #94a3b8; }
-    .chip-dot { width: 10px; height: 10px; border-radius: 50%; background: #34d399; box-shadow: 0 0 0 4px rgba(52,211,153,.18); flex: none; }
-    @media (max-width: 640px) {
-      .hero-portrait { max-width: 300px; }
-      .chip-tl { left: -6px; top: 10px; }
-      .chip-br { right: -6px; bottom: 12px; }
-      .float-chip { padding: 9px 12px; }
-      .chip-num { font-size: 22px; }
-      .chip-lbl { font-size: 11px; }
+    /* ── Hero avatar (pop-out portrait) ── */
+    .hero-avatar { --d: 340px; position: relative; width: var(--d); height: calc(var(--d) * 1.2); margin: 0 auto; }
+    .av-disk { position: absolute; left: 0; bottom: 0; width: var(--d); height: var(--d); border-radius: 50%;
+      background: radial-gradient(circle at 30% 25%, #4f46e5 0%, #312e81 38%, #0f172a 72%);
+      box-shadow: 0 0 0 1px rgba(129,140,248,.35), 0 0 80px -10px rgba(99,102,241,.55), inset 0 -30px 60px rgba(6,182,212,.18); }
+    .av-orbit { position: absolute; left: 50%; bottom: calc(var(--d) / 2); width: calc(var(--d) * 1.22); height: calc(var(--d) * 1.22);
+      transform: translate(-50%, 50%); border-radius: 50%; border: 1px dashed rgba(129,140,248,.28); }
+    .av-img { position: absolute; left: 50%; bottom: 0; width: 118%; height: auto; transform: translateX(-41%);
+      -webkit-mask: radial-gradient(circle at 50% calc(100% - var(--d) / 2), #000 calc(var(--d) / 2 - 1px), transparent calc(var(--d) / 2)),
+                    linear-gradient(#000, #000) top / 100% calc(100% - var(--d) / 2) no-repeat;
+              mask: radial-gradient(circle at 50% calc(100% - var(--d) / 2), #000 calc(var(--d) / 2 - 1px), transparent calc(var(--d) / 2)),
+                    linear-gradient(#000, #000) top / 100% calc(100% - var(--d) / 2) no-repeat;
+      filter: drop-shadow(0 18px 30px rgba(0,0,0,.45)); }
+    .av-chip { position: absolute; z-index: 3; display: flex; align-items: center; gap: 10px; padding: 9px 14px; border-radius: 14px;
+      background: rgba(12,12,22,.9); border: 1px solid rgba(129,140,248,.28); backdrop-filter: blur(12px);
+      box-shadow: 0 10px 28px -10px rgba(0,0,0,.7); white-space: nowrap; }
+    .av-chip b { display: block; font-size: 13px; color: #fff; font-weight: 700; line-height: 1.2; }
+    .av-chip small { display: block; font-size: 11px; color: #94a3b8; line-height: 1.3; }
+    .av-chip-l { left: -78px; top: 30%; }
+    .av-chip-r { right: -56px; bottom: 7%; }
+    .av-ic { font-size: 15px; font-weight: 800; background: linear-gradient(135deg,#a5b4fc,#06b6d4); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .av-dot { width: 9px; height: 9px; border-radius: 50%; background: #34d399; box-shadow: 0 0 0 4px rgba(52,211,153,.18); flex: none; }
+    @media (max-width: 1023px) { .hero-avatar { --d: 300px; margin-top: 8px; } }
+    @media (max-width: 480px) {
+      .hero-avatar { --d: 250px; }
+      .av-chip { display: none; }
     }
     @media (prefers-reduced-motion: no-preference) {
-      .portrait-frame { transition: transform .5s ease; }
-      .hero-portrait:hover .portrait-frame { transform: translateY(-4px); }
+      .av-orbit { animation: av-spin 40s linear infinite; }
+      @keyframes av-spin { to { transform: translate(-50%, 50%) rotate(360deg); } }
     }
 
     *, *::before, *::after { box-sizing: border-box; }
@@ -468,21 +467,20 @@
       </div>
 
       <!-- Right: portrait -->
-      <div class="hero-portrait fade-up">
-        <div class="portrait-glow" aria-hidden="true"></div>
-        <div class="portrait-frame">
-          <picture>
-            <source srcset="assets/usman-portrait.webp" type="image/webp" />
-            <img src="assets/usman-portrait.jpg" alt="Usman Ramzan, Full Stack Developer and AI Automation Engineer" width="720" height="750" fetchpriority="high" />
-          </picture>
+      <div class="hero-avatar fade-up" aria-label="Portrait of Usman Ramzan">
+        <div class="av-orbit" aria-hidden="true"></div>
+        <div class="av-disk" aria-hidden="true"></div>
+        <picture>
+          <source srcset="assets/usman-cutout.webp" type="image/webp" />
+          <img class="av-img" src="assets/usman-cutout.png" alt="Usman Ramzan, Full Stack Developer and AI Automation Engineer" width="760" height="740" fetchpriority="high" />
+        </picture>
+        <div class="av-chip av-chip-l">
+          <span class="av-ic">&lt;/&gt;</span>
+          <span><b>Full Stack</b><small>React · Node · Laravel</small></span>
         </div>
-        <div class="float-chip chip-tl">
-          <span class="chip-num">&lt;/&gt;</span>
-          <span class="chip-lbl"><strong class="text-white">Full Stack</strong><br>React · Node.js · Laravel</span>
-        </div>
-        <div class="float-chip chip-br">
-          <span class="chip-dot" aria-hidden="true"></span>
-          <span class="chip-lbl"><strong class="text-white">AI-native</strong><br>Claude Code · n8n · GHL</span>
+        <div class="av-chip av-chip-r">
+          <span class="av-dot" aria-hidden="true"></span>
+          <span><b>AI-native</b><small>Claude · n8n · GHL</small></span>
         </div>
       </div>
 
