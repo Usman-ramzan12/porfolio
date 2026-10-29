@@ -977,7 +977,7 @@
 <!-- ═══════════════════════════════ FOOTER ═══════════════════════════════ -->
 <footer class="py-8 border-t border-white/5" role="contentinfo">
   <div class="max-w-6xl mx-auto px-4 md:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-    <div class="text-slate-600 text-sm">© 2025 Usman Ramzan. All rights reserved.</div>
+    <div class="text-slate-600 text-sm">© <span id="footer-year"></span> Usman Ramzan. All rights reserved.</div>
     <div class="flex items-center gap-6 text-sm text-slate-600">
       <a href="mailto:usmanramzan434@gmail.com" class="hover:text-slate-400 transition-colors">Email</a>
       <a href="https://www.linkedin.com/in/usman-ramzan-336320185" target="_blank" rel="noopener noreferrer" class="hover:text-slate-400 transition-colors">LinkedIn</a>
@@ -1529,6 +1529,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { rootMargin: '-40% 0px -55% 0px' });
   sections.forEach(s => navIO.observe(s));
 });
+
+/* ── Footer year ── */
+const fyEl = document.getElementById('footer-year');
+if (fyEl) fyEl.textContent = new Date().getFullYear();
 
 /* ── Nav scroll effect ── */
 const navbar = document.getElementById('navbar');
