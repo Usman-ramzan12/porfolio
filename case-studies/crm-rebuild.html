@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Insurance Sales CRM Rebuild — Case Study · Usman Ramzan</title>
-    <meta name="description" content="How I audited and rebuilt a live insurance sales CRM from scratch as sole developer — 104-field dynamic form, 59-state workflow engine, 198-permission RBAC.">
+    <title>Insurance Sales CRM Rebuild | Case Study · Usman Ramzan</title>
+    <meta name="description" content="How I audited and rebuilt a live insurance sales CRM from scratch as sole developer, 104-field dynamic form, 59-state workflow engine, 198-permission RBAC.">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -54,14 +54,14 @@
             <span style="display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:9999px;font-size:0.75rem;font-weight:600;background:rgba(234,179,8,0.12);border:1px solid rgba(234,179,8,0.25);color:#fde047">★ Featured Case Study</span>
         </div>
         <h1 class="text-4xl md:text-5xl font-extrabold text-white leading-tight mb-4">
-            Insurance Sales CRM<br><span class="grad-text">— Full Rebuild</span>
+            Insurance Sales CRM<br><span class="grad-text">Full Rebuild</span>
         </h1>
         <p class="text-slate-400 text-lg max-w-2xl mb-8">Ground-up rebuild of a client's live insurance sales & lead-management portal on a modern stack. Delivered as sole developer, from audit to production-ready code.</p>
         <div class="flex flex-wrap gap-3 text-sm text-slate-500">
             <span>Role: <strong class="text-slate-300">Sole Developer</strong></span>
             <span>·</span>
             <span>Client: <strong class="text-slate-300">Insurance industry (private)</strong></span>
-            <!-- TODO: add timeframe — add a <span> here when known -->
+            <!-- TODO: add timeframe, add a <span> here when known -->
         </div>
     </div>
 </section>
@@ -91,8 +91,8 @@
     <div class="max-w-4xl mx-auto">
         <div class="section-label">The Problem</div>
         <h2 class="text-2xl font-bold text-white mb-4">A live production CRM with no documentation</h2>
-        <p class="text-slate-400 leading-relaxed mb-4">The client had a legacy insurance sales portal running in production — handling real agents, real leads, and real revenue — but with no technical documentation, no tests, and no clean separation of concerns. They needed a complete rebuild on a modern stack without interrupting daily operations.</p>
-        <p class="text-slate-400 leading-relaxed">The challenge: before writing a single line of new code, I needed to understand every screen, every role, every business rule, and every edge case in the existing system — without touching its data.</p>
+        <p class="text-slate-400 leading-relaxed mb-4">The client had a legacy insurance sales portal running in production, handling real agents, real leads, and real revenue, but with no technical documentation, no tests, and no clean separation of concerns. They needed a complete rebuild on a modern stack without interrupting daily operations.</p>
+        <p class="text-slate-400 leading-relaxed">The challenge: before writing a single line of new code, I needed to understand every screen, every role, every business rule, and every edge case in the existing system, without touching its data.</p>
     </div>
 </section>
 
@@ -106,7 +106,7 @@
                 <div style="width:32px;height:32px;border-radius:50%;background:rgba(99,102,241,0.2);border:1px solid rgba(99,102,241,0.4);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.8rem;font-weight:700;color:#a5b4fc">1</div>
                 <div>
                     <h3 class="text-white font-semibold mb-1">Read-only audit with Claude Code + Playwright MCP</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">Used Claude Code with the Playwright MCP server to crawl the live CRM in a strictly read-only mode — documenting every module, form field, state transition, and role restriction. Zero writes to production data.</p>
+                    <p class="text-slate-400 text-sm leading-relaxed">Used Claude Code with the Playwright MCP server to crawl the live CRM in a strictly read-only mode, documenting every module, form field, state transition, and role restriction. Zero writes to production data.</p>
                 </div>
             </div>
             <div class="flex gap-4">
@@ -136,12 +136,12 @@
             <div class="feature-card">
                 <div class="text-2xl mb-2">📋</div>
                 <h3 class="text-white font-semibold mb-1">104-Field Dynamic Lead Form</h3>
-                <p class="text-slate-400 text-sm">Form fields change based on lead type — the form adapts its structure dynamically without page reload.</p>
+                <p class="text-slate-400 text-sm">Form fields change based on lead type, the form adapts its structure dynamically without page reload.</p>
             </div>
             <div class="feature-card">
                 <div class="text-2xl mb-2">🔄</div>
                 <h3 class="text-white font-semibold mb-1">59-State Disposition Workflow Engine</h3>
-                <p class="text-slate-400 text-sm">Each state has defined transitions and per-role visibility — agents only see the states they can move leads into.</p>
+                <p class="text-slate-400 text-sm">Each state has defined transitions and per-role visibility, agents only see the states they can move leads into.</p>
             </div>
             <div class="feature-card">
                 <div class="text-2xl mb-2">🔐</div>
@@ -161,12 +161,12 @@
             <div class="feature-card">
                 <div class="text-2xl mb-2">💬</div>
                 <h3 class="text-white font-semibold mb-1">Internal Chat & Audit History</h3>
-                <p class="text-slate-400 text-sm">Built-in messaging tables and field-level audit history — every change to a lead is timestamped and attributed.</p>
+                <p class="text-slate-400 text-sm">Built-in messaging tables and field-level audit history, every change to a lead is timestamped and attributed.</p>
             </div>
             <div class="feature-card md:col-span-2">
                 <div class="text-2xl mb-2">🔄</div>
                 <h3 class="text-white font-semibold mb-1">Repository Pattern (In-Memory → Supabase)</h3>
-                <p class="text-slate-400 text-sm">The entire data layer sits behind a repository interface. The in-memory store used during development swaps to a Supabase/PostgreSQL backend without any changes to business logic — a clean migration path with zero risk to existing code.</p>
+                <p class="text-slate-400 text-sm">The entire data layer sits behind a repository interface. The in-memory store used during development swaps to a Supabase/PostgreSQL backend without any changes to business logic, a clean migration path with zero risk to existing code.</p>
             </div>
         </div>
     </div>
@@ -180,7 +180,7 @@
         <div class="space-y-6">
             <div class="glass rounded-xl p-6">
                 <h3 class="text-white font-semibold mb-2">Recovering undocumented business logic from a live system safely</h3>
-                <p class="text-slate-400 text-sm leading-relaxed">The biggest risk was misunderstanding an undocumented rule — a disposition transition that's only allowed for certain carriers on certain plans, or a permission that silently fails rather than showing an error. Using Claude Code with Playwright in read-only mode let me systematically click through every state in the live system and build a ground-truth spec before touching code.</p>
+                <p class="text-slate-400 text-sm leading-relaxed">The biggest risk was misunderstanding an undocumented rule, a disposition transition that's only allowed for certain carriers on certain plans, or a permission that silently fails rather than showing an error. Using Claude Code with Playwright in read-only mode let me systematically click through every state in the live system and build a ground-truth spec before touching code.</p>
             </div>
             <div class="glass rounded-xl p-6">
                 <h3 class="text-white font-semibold mb-2">Designing 198 permissions without making it unmaintainable</h3>
@@ -188,13 +188,13 @@
             </div>
             <div class="glass rounded-xl p-6">
                 <h3 class="text-white font-semibold mb-2">Keeping the data layer portable without over-engineering</h3>
-                <p class="text-slate-400 text-sm leading-relaxed">The repository pattern lets the app run entirely in-memory during development and CI, with a deterministic swap to Supabase for production — no environment-specific branches, no mocking infrastructure, no test database setup. The interface is thin enough that the Supabase implementation is a drop-in.</p>
+                <p class="text-slate-400 text-sm leading-relaxed">The repository pattern lets the app run entirely in-memory during development and CI, with a deterministic swap to Supabase for production, no environment-specific branches, no mocking infrastructure, no test database setup. The interface is thin enough that the Supabase implementation is a drop-in.</p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- TODO: add screenshot section — uncomment and replace src when a blurred/redacted screenshot is ready
+<!-- TODO: add screenshot section, uncomment and replace src when a blurred/redacted screenshot is ready
 <section style="background:#0a0a0f;padding:48px 24px">
     <div class="max-w-4xl mx-auto">
         <div class="section-label">Screenshots</div>
@@ -210,7 +210,7 @@
         <h2 class="text-2xl font-bold text-white mb-4">What was delivered</h2>
         <ul class="space-y-3 text-slate-400">
             <li class="flex gap-3"><span class="text-indigo-400 mt-0.5">▸</span>A fully documented, testable CRM codebase replacing an undocumented legacy system</li>
-            <li class="flex gap-3"><span class="text-indigo-400 mt-0.5">▸</span>104-field dynamic lead form, 59-state workflow engine, and 198-permission RBAC — all running on the new stack</li>
+            <li class="flex gap-3"><span class="text-indigo-400 mt-0.5">▸</span>104-field dynamic lead form, 59-state workflow engine, and 198-permission RBAC, all running on the new stack</li>
             <li class="flex gap-3"><span class="text-indigo-400 mt-0.5">▸</span>Zero writes to live production data during the audit and development phase</li>
             <li class="flex gap-3"><span class="text-indigo-400 mt-0.5">▸</span>A portable data layer ready to connect to Supabase without code changes</li>
         </ul>
