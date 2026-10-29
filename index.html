@@ -930,7 +930,7 @@
       <h3 class="text-white font-bold text-xl mb-2">Send a message</h3>
       <p class="text-slate-500 text-sm mb-6">Fill in the form and I'll get back to you within 24 hours.</p>
 
-      <form method="POST" action="https://formspree.io/f/TODO_FORM_ID" class="space-y-4" aria-label="Contact form">
+      <form id="contact-form" method="POST" class="space-y-4" aria-label="Contact form">
         <input type="hidden" name="_subject" value="Portfolio contact" />
         <div class="grid sm:grid-cols-2 gap-4">
           <div>
@@ -951,9 +951,8 @@
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
             Send Message
           </button>
-          <a href="TODO_CALENDLY_LINK" class="btn-outline text-sm">
-            📅 Book a Call
-          </a>
+          <!-- Book a Call button: injected by JS only when CALENDLY_LINK is set -->
+          <span id="book-call-btn"></span>
         </div>
         <p class="text-slate-600 text-xs">Or email directly: <a href="mailto:usmanramzan434@gmail.com" class="text-slate-400 hover:text-slate-200 underline">usmanramzan434@gmail.com</a></p>
       </form>
@@ -1253,6 +1252,10 @@ const DATA = {
 
 <!-- ═══════════════════════════════ SCRIPTS ═══════════════════════════════ -->
 <script>
+/* ── Config (fill these in before going live) ── */
+const FORMSPREE_ID   = null;  // e.g. 'xabcdefg' — set to null to use mailto fallback
+const CALENDLY_LINK  = null;  // e.g. 'https://calendly.com/yourname' — null hides the button
+
 /* ── Helpers ── */
 function esc(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -1443,6 +1446,29 @@ document.addEventListener('DOMContentLoaded', () => {
   renderAutomationFeatured(DATA.automations.featured);
   renderAutomationSmall(DATA.automations.small);
   renderTestimonials(DATA.testimonials);
+
+  /* Contact form: Formspree if ID set, else mailto fallback */
+  const form = document.getElementById('contact-form');
+  if (form) {
+    if (FORMSPREE_ID) {
+      form.setAttribute('action', 'https://formspree.io/f/' + FORMSPREE_ID);
+      form.setAttribute('method', 'POST');
+    } else {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const name    = (form.querySelector('[name="name"]').value    || '').trim();
+        const message = (form.querySelector('[name="message"]').value || '').trim();
+        const body    = encodeURIComponent((name ? 'From: ' + name + '\n\n' : '') + message);
+        window.location.href = 'mailto:usmanramzan434@gmail.com?subject=Portfolio%20contact&body=' + body;
+      });
+    }
+  }
+
+  /* Book a Call: only show when CALENDLY_LINK is set */
+  const bookBtn = document.getElementById('book-call-btn');
+  if (bookBtn && CALENDLY_LINK) {
+    bookBtn.innerHTML = `<a href="${esc(CALENDLY_LINK)}" target="_blank" rel="noopener noreferrer" class="btn-outline text-sm">📅 Book a Call</a>`;
+  }
 
   /* Filter tabs */
   document.querySelectorAll('.filter-tab').forEach(tab => {
