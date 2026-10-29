@@ -25,6 +25,7 @@
   {
     "@context": "https://schema.org",
     "@type": "Person",
+    "image": "https://usman-ramzan12.github.io/porfolio/assets/usman-portrait.jpg",
     "name": "Usman Ramzan",
     "jobTitle": "Full Stack Developer & AI Automation Engineer",
     "url": "https://usman-ramzan12.github.io/porfolio",
@@ -62,6 +63,39 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
   <style>
+    /* ── Hero portrait ── */
+    .hero-portrait { position: relative; max-width: 440px; width: 100%; margin: 0 auto; }
+    .portrait-glow { position: absolute; inset: -8%; border-radius: 40px;
+      background: radial-gradient(60% 60% at 30% 20%, rgba(99,102,241,.45), transparent 70%),
+                  radial-gradient(60% 60% at 80% 85%, rgba(6,182,212,.35), transparent 70%);
+      filter: blur(28px); z-index: 0; }
+    .portrait-frame { position: relative; z-index: 1; border-radius: 32px; padding: 3px;
+      background: linear-gradient(135deg, #818cf8, #06b6d4 60%, rgba(255,255,255,.08));
+      box-shadow: 0 30px 80px -20px rgba(0,0,0,.7); }
+    .portrait-frame img { display: block; width: 100%; height: auto; aspect-ratio: 720/750; object-fit: cover;
+      border-radius: 29px; }
+    .float-chip { position: absolute; z-index: 2; display: flex; align-items: center; gap: 10px;
+      padding: 12px 16px; border-radius: 16px; backdrop-filter: blur(14px);
+      background: rgba(12,12,22,.92); border: 1px solid rgba(129,140,248,.3); box-shadow: 0 12px 30px -10px rgba(0,0,0,.6); }
+    .chip-tl { top: 18px; left: -18px; }
+    .chip-br { bottom: 22px; right: -18px; }
+    .chip-num { font-size: 22px; font-weight: 800; line-height: 1;
+      background: linear-gradient(135deg,#a5b4fc,#06b6d4); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .chip-lbl { font-size: 12px; line-height: 1.35; color: #94a3b8; }
+    .chip-dot { width: 10px; height: 10px; border-radius: 50%; background: #34d399; box-shadow: 0 0 0 4px rgba(52,211,153,.18); flex: none; }
+    @media (max-width: 640px) {
+      .hero-portrait { max-width: 300px; }
+      .chip-tl { left: -6px; top: 10px; }
+      .chip-br { right: -6px; bottom: 12px; }
+      .float-chip { padding: 9px 12px; }
+      .chip-num { font-size: 22px; }
+      .chip-lbl { font-size: 11px; }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .portrait-frame { transition: transform .5s ease; }
+      .hero-portrait:hover .portrait-frame { transform: translateY(-4px); }
+    }
+
     *, *::before, *::after { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
 
@@ -433,38 +467,59 @@
         </div>
       </div>
 
-      <!-- Right: stats + tech pills -->
-      <div class="grid grid-cols-2 gap-4 fade-up">
-        <div class="glass glass-hover rounded-2xl p-6">
-          <div class="stat-num mb-1">7+</div>
-          <div class="text-slate-400 text-sm font-medium">Years of Experience</div>
+      <!-- Right: portrait -->
+      <div class="hero-portrait fade-up">
+        <div class="portrait-glow" aria-hidden="true"></div>
+        <div class="portrait-frame">
+          <picture>
+            <source srcset="assets/usman-portrait.webp" type="image/webp" />
+            <img src="assets/usman-portrait.jpg" alt="Usman Ramzan, Full Stack Developer and AI Automation Engineer" width="720" height="750" fetchpriority="high" />
+          </picture>
         </div>
-        <div class="glass glass-hover rounded-2xl p-6">
-          <div class="stat-num mb-1">10+</div>
-          <div class="text-slate-400 text-sm font-medium">Production Apps Shipped</div>
+        <div class="float-chip chip-tl">
+          <span class="chip-num">&lt;/&gt;</span>
+          <span class="chip-lbl"><strong class="text-white">Full Stack</strong><br>React · Node.js · Laravel</span>
         </div>
-        <div class="glass glass-hover rounded-2xl p-6">
-          <div class="stat-num mb-1">2</div>
-          <div class="text-slate-400 text-sm font-medium">Live AI Automations Deployed</div>
-        </div>
-        <div class="glass glass-hover rounded-2xl p-6">
-          <div class="stat-num mb-1">198</div>
-          <div class="text-slate-400 text-sm font-medium">Permissions in Largest RBAC</div>
-        </div>
-        <div class="col-span-2 glass rounded-2xl p-5 flex flex-wrap gap-2">
-          <span class="skill-tag">React.js</span>
-          <span class="skill-tag">Next.js</span>
-          <span class="skill-tag">Node.js</span>
-          <span class="skill-tag">Laravel</span>
-          <span class="skill-tag">TypeScript</span>
-          <span class="skill-tag">PostgreSQL</span>
-          <span class="skill-tag">n8n</span>
-          <span class="skill-tag">GoHighLevel</span>
-          <span class="skill-tag">Claude Code</span>
+        <div class="float-chip chip-br">
+          <span class="chip-dot" aria-hidden="true"></span>
+          <span class="chip-lbl"><strong class="text-white">AI-native</strong><br>Claude Code · n8n · GHL</span>
         </div>
       </div>
 
     </div>
+
+    <!-- Stats strip -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-14 fade-up">
+      <div class="glass glass-hover rounded-2xl p-6">
+        <div class="stat-num mb-1">7+</div>
+        <div class="text-slate-400 text-sm font-medium">Years of Experience</div>
+      </div>
+      <div class="glass glass-hover rounded-2xl p-6">
+        <div class="stat-num mb-1">50+</div>
+        <div class="text-slate-400 text-sm font-medium">Production Apps Shipped</div>
+      </div>
+      <div class="glass glass-hover rounded-2xl p-6">
+        <div class="stat-num mb-1">20+</div>
+        <div class="text-slate-400 text-sm font-medium">Live AI Automations Deployed</div>
+      </div>
+      <div class="glass glass-hover rounded-2xl p-6">
+        <div class="stat-num mb-1">198</div>
+        <div class="text-slate-400 text-sm font-medium">Permissions in Largest RBAC</div>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap justify-center gap-2 mt-6 fade-up">
+      <span class="skill-tag">React.js</span>
+      <span class="skill-tag">Next.js</span>
+      <span class="skill-tag">Node.js</span>
+      <span class="skill-tag">Laravel</span>
+      <span class="skill-tag">TypeScript</span>
+      <span class="skill-tag">PostgreSQL</span>
+      <span class="skill-tag">n8n</span>
+      <span class="skill-tag">GoHighLevel</span>
+      <span class="skill-tag">Claude Code</span>
+    </div>
+
   </div>
 </section>
 
@@ -551,7 +606,7 @@
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#a5b4fc" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
         </div>
         <h3 class="text-white font-bold text-lg mb-2">Production-Grade Delivery</h3>
-        <p class="text-slate-400 text-sm leading-relaxed">10+ production apps delivered across SaaS, FinTech, and AdTech domains — from solo builds to team-led platform launches</p>
+        <p class="text-slate-400 text-sm leading-relaxed">50+ production apps delivered across SaaS, FinTech, and AdTech domains — from solo builds to team-led platform launches</p>
       </div>
 
       <div class="glass glass-hover rounded-2xl p-6 text-center fade-up" style="transition-delay:0.2s">
