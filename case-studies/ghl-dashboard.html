@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GHL Growth & Attribution Dashboard — Case Study · Usman Ramzan</title>
-    <meta name="description" content="How I built a real-time GoHighLevel KPI dashboard for a US medical-aesthetics agency — serverless Node.js on Vercel, cursor pagination, timezone-aware reporting.">
+    <title>GHL Growth & Attribution Dashboard | Case Study · Usman Ramzan</title>
+    <meta name="description" content="How I built a real-time GoHighLevel KPI dashboard for a US medical-aesthetics agency, serverless Node.js on Vercel, cursor pagination, timezone-aware reporting.">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -52,14 +52,14 @@
         <h1 class="text-4xl md:text-5xl font-extrabold text-white leading-tight mb-4">
             GoHighLevel Growth &amp;<br><span class="grad-text">Attribution Dashboard</span>
         </h1>
-        <p class="text-slate-400 text-lg max-w-2xl mb-8">Live KPI dashboard for a US medical-aesthetics growth agency — pulling real-time data from the GoHighLevel v2 API with a Node.js serverless backend on Vercel, timezone-aware reporting, and silent bug fixes for under-counting.</p>
+        <p class="text-slate-400 text-lg max-w-2xl mb-8">Live KPI dashboard for a US medical-aesthetics growth agency, pulling real-time data from the GoHighLevel v2 API with a Node.js serverless backend on Vercel, timezone-aware reporting, and silent bug fixes for under-counting.</p>
         <div class="flex flex-wrap gap-3 text-sm text-slate-500">
             <span>Role: <strong class="text-slate-300">Sole Developer</strong></span>
             <span>·</span>
             <span>Client: <strong class="text-slate-300">US medical-aesthetics growth agency (private)</strong></span>
             <span>·</span>
             <span>Built at: <strong class="text-slate-300">NDT Group</strong></span>
-            <!-- TODO: add timeframe — add a <span> here when known -->
+            <!-- TODO: add timeframe, add a <span> here when known -->
         </div>
     </div>
 </section>
@@ -78,9 +78,9 @@
 <section style="background:#0a0a0f;padding:48px 24px">
     <div class="max-w-4xl mx-auto">
         <div class="section-label">The Problem</div>
-        <h2 class="text-2xl font-bold text-white mb-4">The agency had data — but no visibility</h2>
-        <p class="text-slate-400 leading-relaxed mb-4">A US medical-aesthetics growth agency was managing hundreds of leads and appointments through GoHighLevel but had no consolidated view of their funnel performance. They needed real-time visibility into Speed to Lead, booking rates, show-up rates, rep performance, and attribution — all from a single dashboard.</p>
-        <p class="text-slate-400 leading-relaxed">The hidden complexity: the GHL v2 API doesn't paginate correctly for large date ranges, silently drops records when over the page limit, and stores all timestamps in UTC while the business operates across multiple timezones — one of which had an off-by-one bug in date-range handling.</p>
+        <h2 class="text-2xl font-bold text-white mb-4">The agency had data, but no visibility</h2>
+        <p class="text-slate-400 leading-relaxed mb-4">A US medical-aesthetics growth agency was managing hundreds of leads and appointments through GoHighLevel but had no consolidated view of their funnel performance. They needed real-time visibility into Speed to Lead, booking rates, show-up rates, rep performance, and attribution, all from a single dashboard.</p>
+        <p class="text-slate-400 leading-relaxed">The hidden complexity: the GHL v2 API doesn't paginate correctly for large date ranges, silently drops records when over the page limit, and stores all timestamps in UTC while the business operates across multiple timezones, one of which had an off-by-one bug in date-range handling.</p>
     </div>
 </section>
 
@@ -101,14 +101,14 @@
                 <div style="width:32px;height:32px;border-radius:50%;background:rgba(6,182,212,0.15);border:1px solid rgba(6,182,212,0.35);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.8rem;font-weight:700;color:#67e8f9">2</div>
                 <div>
                     <h3 class="text-white font-semibold mb-1">Cursor-based pagination with early exit</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">GHL's API silently drops records on large result sets. Implemented cursor-based pagination with an early exit once records pass the requested date range — guaranteeing complete data without over-fetching.</p>
+                    <p class="text-slate-400 text-sm leading-relaxed">GHL's API silently drops records on large result sets. Implemented cursor-based pagination with an early exit once records pass the requested date range, guaranteeing complete data without over-fetching.</p>
                 </div>
             </div>
             <div class="flex gap-4">
                 <div style="width:32px;height:32px;border-radius:50%;background:rgba(6,182,212,0.15);border:1px solid rgba(6,182,212,0.35);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.8rem;font-weight:700;color:#67e8f9">3</div>
                 <div>
                     <h3 class="text-white font-semibold mb-1">Timezone-aware reporting</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">Each GHL location stores its own timezone. I fetch and cache the timezone per location (with a UTC fallback), then convert all timestamps before grouping by date — fixing an off-by-one bug where appointments were attributed to the wrong day.</p>
+                    <p class="text-slate-400 text-sm leading-relaxed">Each GHL location stores its own timezone. I fetch and cache the timezone per location (with a UTC fallback), then convert all timestamps before grouping by date, fixing an off-by-one bug where appointments were attributed to the wrong day.</p>
                 </div>
             </div>
             <div class="flex gap-4">
@@ -130,7 +130,7 @@
         <div class="grid md:grid-cols-2 gap-4">
             <div class="feature-card">
                 <h3 class="text-white font-semibold mb-2">⚡ Speed to Lead</h3>
-                <p class="text-slate-400 text-sm">Time from lead creation to first contact — broken down by rep and timeframe.</p>
+                <p class="text-slate-400 text-sm">Time from lead creation to first contact, broken down by rep and timeframe.</p>
             </div>
             <div class="feature-card">
                 <h3 class="text-white font-semibold mb-2">📅 Lead → Booking Rate</h3>
@@ -164,11 +164,11 @@
         <div class="space-y-6">
             <div class="glass rounded-xl p-6">
                 <h3 class="text-white font-semibold mb-2">Silent under-counting from API pagination</h3>
-                <p class="text-slate-400 text-sm leading-relaxed">The GHL v2 API uses offset-based pagination internally and will silently truncate results when a query spans a large date range. Without cursor-based pagination and an explicit early-exit check, dashboards that look correct on small date ranges will under-report on weekly or monthly views — and the client would never know.</p>
+                <p class="text-slate-400 text-sm leading-relaxed">The GHL v2 API uses offset-based pagination internally and will silently truncate results when a query spans a large date range. Without cursor-based pagination and an explicit early-exit check, dashboards that look correct on small date ranges will under-report on weekly or monthly views, and the client would never know.</p>
             </div>
             <div class="glass rounded-xl p-6">
                 <h3 class="text-white font-semibold mb-2">Timezone off-by-one in date-range attribution</h3>
-                <p class="text-slate-400 text-sm leading-relaxed">GHL returns timestamps in UTC. When grouping appointments by day for a location in US Eastern time, an appointment at 11pm UTC on Monday is actually 6pm Monday Eastern — but without timezone conversion it lands on Tuesday in the reporting. Fixing this required reading each location's timezone from the API, caching it, and converting before any date arithmetic.</p>
+                <p class="text-slate-400 text-sm leading-relaxed">GHL returns timestamps in UTC. When grouping appointments by day for a location in US Eastern time, an appointment at 11pm UTC on Monday is actually 6pm Monday Eastern, but without timezone conversion it lands on Tuesday in the reporting. Fixing this required reading each location's timezone from the API, caching it, and converting before any date arithmetic.</p>
             </div>
             <div class="glass rounded-xl p-6">
                 <h3 class="text-white font-semibold mb-2">Duplicate contacts inflating funnel counts</h3>
@@ -195,8 +195,8 @@
         <ul class="space-y-3 text-slate-400">
             <li class="flex gap-3"><span class="text-cyan-400 mt-0.5">▸</span>A real-time KPI dashboard giving the agency full funnel visibility across all their GHL locations</li>
             <li class="flex gap-3"><span class="text-cyan-400 mt-0.5">▸</span>Fixed silent under-counting that had previously skewed weekly and monthly reports</li>
-            <li class="flex gap-3"><span class="text-cyan-400 mt-0.5">▸</span>Timezone-correct date attribution — no more appointments landing on the wrong day</li>
-            <li class="flex gap-3"><span class="text-cyan-400 mt-0.5">▸</span>Deployed as a serverless Vercel project — no infrastructure to manage, auto-scales with traffic</li>
+            <li class="flex gap-3"><span class="text-cyan-400 mt-0.5">▸</span>Timezone-correct date attribution, no more appointments landing on the wrong day</li>
+            <li class="flex gap-3"><span class="text-cyan-400 mt-0.5">▸</span>Deployed as a serverless Vercel project, no infrastructure to manage, auto-scales with traffic</li>
         </ul>
     </div>
 </section>
