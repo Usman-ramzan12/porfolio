@@ -63,37 +63,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
   <style>
-    /* ── Hero avatar (pop-out portrait) ── */
-    .hero-avatar { --d: 270px; position: relative; width: var(--d); height: calc(var(--d) * 1.2); margin: 0 auto; }
-    .av-disk { position: absolute; left: 0; bottom: 0; width: var(--d); height: var(--d); border-radius: 50%;
-      background: radial-gradient(circle at 30% 25%, #4f46e5 0%, #312e81 38%, #0f172a 72%);
-      box-shadow: 0 0 0 1px rgba(129,140,248,.35), 0 0 80px -10px rgba(99,102,241,.55), inset 0 -30px 60px rgba(6,182,212,.18); }
-    .av-orbit { position: absolute; left: 50%; bottom: calc(var(--d) / 2); width: calc(var(--d) * 1.22); height: calc(var(--d) * 1.22);
-      transform: translate(-50%, 50%); border-radius: 50%; border: 1px dashed rgba(129,140,248,.28); }
-    .av-img { position: absolute; left: 50%; bottom: 0; width: 118%; height: auto; transform: translateX(-41%);
-      -webkit-mask: radial-gradient(circle at 50% calc(100% - var(--d) / 2), #000 calc(var(--d) / 2 - 1px), transparent calc(var(--d) / 2)),
-                    linear-gradient(#000, #000) top / 100% calc(100% - var(--d) / 2) no-repeat;
-              mask: radial-gradient(circle at 50% calc(100% - var(--d) / 2), #000 calc(var(--d) / 2 - 1px), transparent calc(var(--d) / 2)),
-                    linear-gradient(#000, #000) top / 100% calc(100% - var(--d) / 2) no-repeat;
-      filter: drop-shadow(0 18px 30px rgba(0,0,0,.45)); }
-    .av-chip { position: absolute; z-index: 3; display: flex; align-items: center; gap: 10px; padding: 9px 14px; border-radius: 14px;
-      background: rgba(12,12,22,.9); border: 1px solid rgba(129,140,248,.28); backdrop-filter: blur(12px);
-      box-shadow: 0 10px 28px -10px rgba(0,0,0,.7); white-space: nowrap; }
-    .av-chip b { display: block; font-size: 13px; color: #fff; font-weight: 700; line-height: 1.2; }
-    .av-chip small { display: block; font-size: 11px; color: #94a3b8; line-height: 1.3; }
-    .av-chip-l { left: -92px; top: 26%; }
-    .av-chip-r { right: -70px; bottom: 4%; }
-    .av-ic { font-size: 15px; font-weight: 800; background: linear-gradient(135deg,#a5b4fc,#06b6d4); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .av-dot { width: 9px; height: 9px; border-radius: 50%; background: #34d399; box-shadow: 0 0 0 4px rgba(52,211,153,.18); flex: none; }
-    @media (max-width: 1023px) { .hero-avatar { --d: 250px; margin-top: 8px; } }
-    @media (max-width: 480px) {
-      .hero-avatar { --d: 210px; }
-      .av-chip { display: none; }
-    }
-    @media (prefers-reduced-motion: no-preference) {
-      .av-orbit { animation: av-spin 40s linear infinite; }
-      @keyframes av-spin { to { transform: translate(-50%, 50%) rotate(360deg); } }
-    }
 
     *, *::before, *::after { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -431,7 +400,6 @@
             <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" aria-hidden="true"></span>
             Available for work
           </span>
-          <span class="badge badge-blue">Currently building: AI automations @ NDT Group</span>
         </div>
 
         <h1 class="text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-4">
@@ -466,58 +434,38 @@
         </div>
       </div>
 
-      <!-- Right: portrait -->
-      <div class="hero-avatar fade-up" aria-label="Portrait of Usman Ramzan">
-        <div class="av-orbit" aria-hidden="true"></div>
-        <div class="av-disk" aria-hidden="true"></div>
-        <picture>
-          <source srcset="assets/usman-cutout.webp" type="image/webp" />
-          <img class="av-img" src="assets/usman-cutout.png" alt="Usman Ramzan, Full Stack Developer and AI Automation Engineer" width="760" height="740" fetchpriority="high" />
-        </picture>
-        <div class="av-chip av-chip-l">
-          <span class="av-ic">&lt;/&gt;</span>
-          <span><b>Full Stack</b><small>React · Node · Laravel</small></span>
+      <!-- Right: stats + tech pills -->
+      <div class="grid grid-cols-2 gap-4 fade-up">
+        <div class="glass glass-hover rounded-2xl p-6">
+          <div class="stat-num mb-1">7+</div>
+          <div class="text-slate-400 text-sm font-medium">Years of Experience</div>
         </div>
-        <div class="av-chip av-chip-r">
-          <span class="av-dot" aria-hidden="true"></span>
-          <span><b>AI-native</b><small>Claude · n8n · GHL</small></span>
+        <div class="glass glass-hover rounded-2xl p-6">
+          <div class="stat-num mb-1">50+</div>
+          <div class="text-slate-400 text-sm font-medium">Production Apps Shipped</div>
+        </div>
+        <div class="glass glass-hover rounded-2xl p-6">
+          <div class="stat-num mb-1">20+</div>
+          <div class="text-slate-400 text-sm font-medium">Live AI Automations Deployed</div>
+        </div>
+        <div class="glass glass-hover rounded-2xl p-6">
+          <div class="stat-num mb-1">198</div>
+          <div class="text-slate-400 text-sm font-medium">Permissions in Largest RBAC</div>
+        </div>
+        <div class="col-span-2 glass rounded-2xl p-5 flex flex-wrap gap-2">
+          <span class="skill-tag">React.js</span>
+          <span class="skill-tag">Next.js</span>
+          <span class="skill-tag">Node.js</span>
+          <span class="skill-tag">Laravel</span>
+          <span class="skill-tag">TypeScript</span>
+          <span class="skill-tag">PostgreSQL</span>
+          <span class="skill-tag">n8n</span>
+          <span class="skill-tag">GoHighLevel</span>
+          <span class="skill-tag">Claude Code</span>
         </div>
       </div>
 
     </div>
-
-    <!-- Stats strip -->
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-14 fade-up">
-      <div class="glass glass-hover rounded-2xl p-6">
-        <div class="stat-num mb-1">7+</div>
-        <div class="text-slate-400 text-sm font-medium">Years of Experience</div>
-      </div>
-      <div class="glass glass-hover rounded-2xl p-6">
-        <div class="stat-num mb-1">50+</div>
-        <div class="text-slate-400 text-sm font-medium">Production Apps Shipped</div>
-      </div>
-      <div class="glass glass-hover rounded-2xl p-6">
-        <div class="stat-num mb-1">20+</div>
-        <div class="text-slate-400 text-sm font-medium">Live AI Automations Deployed</div>
-      </div>
-      <div class="glass glass-hover rounded-2xl p-6">
-        <div class="stat-num mb-1">198</div>
-        <div class="text-slate-400 text-sm font-medium">Permissions in Largest RBAC</div>
-      </div>
-    </div>
-
-    <div class="flex flex-wrap justify-center gap-2 mt-6 fade-up">
-      <span class="skill-tag">React.js</span>
-      <span class="skill-tag">Next.js</span>
-      <span class="skill-tag">Node.js</span>
-      <span class="skill-tag">Laravel</span>
-      <span class="skill-tag">TypeScript</span>
-      <span class="skill-tag">PostgreSQL</span>
-      <span class="skill-tag">n8n</span>
-      <span class="skill-tag">GoHighLevel</span>
-      <span class="skill-tag">Claude Code</span>
-    </div>
-
   </div>
 </section>
 
