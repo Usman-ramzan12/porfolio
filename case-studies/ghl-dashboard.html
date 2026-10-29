@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GHL Growth & Attribution Dashboard — Case Study · Usman Ramzan</title>
+    <meta name="description" content="How I built a real-time GoHighLevel KPI dashboard for a US medical-aesthetics agency — serverless Node.js on Vercel, cursor pagination, timezone-aware reporting.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; background: #0a0a0f; color: #e2e8f0; overflow-x: hidden; }
+        .grad-text { background: linear-gradient(135deg, #a5b4fc 0%, #818cf8 40%, #06b6d4 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .glass { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); backdrop-filter: blur(12px); }
+        .section-label { display: inline-flex; align-items: center; gap: 8px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #818cf8; margin-bottom: 1rem; }
+        .section-label::before { content: ''; display: block; width: 24px; height: 2px; background: #818cf8; border-radius: 2px; }
+        .tech-tag { font-size: 0.72rem; font-weight: 500; padding: 3px 10px; border-radius: 6px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #94a3b8; }
+        .skill-tag { display: inline-block; padding: 4px 12px; border-radius: 9999px; font-size: 0.78rem; font-weight: 500; background: rgba(99,102,241,0.12); border: 1px solid rgba(99,102,241,0.25); color: #a5b4fc; }
+        .btn-outline { display: inline-flex; align-items: center; gap: 8px; padding: 10px 22px; border-radius: 10px; background: transparent; color: #a5b4fc; font-weight: 600; font-size: 0.88rem; border: 1px solid rgba(99,102,241,0.4); cursor: pointer; text-decoration: none; transition: all 0.25s; }
+        .btn-outline:hover { background: rgba(99,102,241,0.1); border-color: #6366f1; color: #c7d2fe; }
+        .feature-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; padding: 20px; }
+        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
+    </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="fixed top-0 left-0 right-0 z-50 px-6 py-4 backdrop-blur-md" style="background:rgba(10,10,15,0.9);border-bottom:1px solid rgba(255,255,255,0.05)">
+    <div class="max-w-4xl mx-auto flex items-center justify-between">
+        <a href="../index.html" class="text-white font-bold text-lg tracking-tight">
+            <span class="grad-text">UR</span><span class="text-slate-400 font-light">.</span>dev
+        </a>
+        <a href="../index.html#projects" class="btn-outline text-sm py-2 px-4">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+            Back to Projects
+        </a>
+    </div>
+</nav>
+
+<div style="height:72px"></div>
+
+<!-- Hero -->
+<section style="background:radial-gradient(ellipse 80% 50% at 50% 0%, rgba(6,182,212,0.15) 0%, transparent 70%), #0a0a0f; padding: 80px 24px 60px">
+    <div class="max-w-4xl mx-auto">
+        <div class="flex flex-wrap gap-2 mb-6">
+            <span class="skill-tag">CRM & GHL</span>
+            <span style="display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:9999px;font-size:0.75rem;font-weight:600;background:rgba(100,116,139,0.12);border:1px solid rgba(100,116,139,0.25);color:#94a3b8">Private / Client Work</span>
+            <span style="display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:9999px;font-size:0.75rem;font-weight:600;background:rgba(234,179,8,0.12);border:1px solid rgba(234,179,8,0.25);color:#fde047">★ Featured Case Study</span>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-extrabold text-white leading-tight mb-4">
+            GoHighLevel Growth &amp;<br><span class="grad-text">Attribution Dashboard</span>
+        </h1>
+        <p class="text-slate-400 text-lg max-w-2xl mb-8">Live KPI dashboard for a US medical-aesthetics growth agency — pulling real-time data from the GoHighLevel v2 API with a Node.js serverless backend on Vercel, timezone-aware reporting, and silent bug fixes for under-counting.</p>
+        <div class="flex flex-wrap gap-3 text-sm text-slate-500">
+            <span>Role: <strong class="text-slate-300">Sole Developer</strong></span>
+            <span>·</span>
+            <span>Client: <strong class="text-slate-300">US medical-aesthetics growth agency (private)</strong></span>
+            <span>·</span>
+            <span>Built at: <strong class="text-slate-300">NDT Group</strong></span>
+            <!-- TODO: add timeframe — add a <span> here when known -->
+        </div>
+    </div>
+</section>
+
+<!-- Stack -->
+<section style="background:#0d0d14;padding:40px 24px">
+    <div class="max-w-4xl mx-auto">
+        <div class="section-label">Stack</div>
+        <div class="flex flex-wrap gap-2">
+            <span class="tech-tag">Node.js</span><span class="tech-tag">Vercel Serverless</span><span class="tech-tag">GoHighLevel API v2</span><span class="tech-tag">Tailwind CSS</span><span class="tech-tag">Chart.js</span><span class="tech-tag">REST</span>
+        </div>
+    </div>
+</section>
+
+<!-- The problem -->
+<section style="background:#0a0a0f;padding:48px 24px">
+    <div class="max-w-4xl mx-auto">
+        <div class="section-label">The Problem</div>
+        <h2 class="text-2xl font-bold text-white mb-4">The agency had data — but no visibility</h2>
+        <p class="text-slate-400 leading-relaxed mb-4">A US medical-aesthetics growth agency was managing hundreds of leads and appointments through GoHighLevel but had no consolidated view of their funnel performance. They needed real-time visibility into Speed to Lead, booking rates, show-up rates, rep performance, and attribution — all from a single dashboard.</p>
+        <p class="text-slate-400 leading-relaxed">The hidden complexity: the GHL v2 API doesn't paginate correctly for large date ranges, silently drops records when over the page limit, and stores all timestamps in UTC while the business operates across multiple timezones — one of which had an off-by-one bug in date-range handling.</p>
+    </div>
+</section>
+
+<!-- My approach -->
+<section style="background:#0d0d14;padding:48px 24px">
+    <div class="max-w-4xl mx-auto">
+        <div class="section-label">My Approach</div>
+        <h2 class="text-2xl font-bold text-white mb-6">Serverless API layer + bento card UI</h2>
+        <div class="space-y-4">
+            <div class="flex gap-4">
+                <div style="width:32px;height:32px;border-radius:50%;background:rgba(6,182,212,0.15);border:1px solid rgba(6,182,212,0.35);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.8rem;font-weight:700;color:#67e8f9">1</div>
+                <div>
+                    <h3 class="text-white font-semibold mb-1">Node.js serverless functions on Vercel</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Separate endpoints for each dashboard view: overview, conversion funnel, daily appointments, attribution, deals by rep, recent closes, and pipeline status. Each endpoint fetches, filters, and aggregates GHL data server-side before sending it to the UI.</p>
+                </div>
+            </div>
+            <div class="flex gap-4">
+                <div style="width:32px;height:32px;border-radius:50%;background:rgba(6,182,212,0.15);border:1px solid rgba(6,182,212,0.35);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.8rem;font-weight:700;color:#67e8f9">2</div>
+                <div>
+                    <h3 class="text-white font-semibold mb-1">Cursor-based pagination with early exit</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">GHL's API silently drops records on large result sets. Implemented cursor-based pagination with an early exit once records pass the requested date range — guaranteeing complete data without over-fetching.</p>
+                </div>
+            </div>
+            <div class="flex gap-4">
+                <div style="width:32px;height:32px;border-radius:50%;background:rgba(6,182,212,0.15);border:1px solid rgba(6,182,212,0.35);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.8rem;font-weight:700;color:#67e8f9">3</div>
+                <div>
+                    <h3 class="text-white font-semibold mb-1">Timezone-aware reporting</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Each GHL location stores its own timezone. I fetch and cache the timezone per location (with a UTC fallback), then convert all timestamps before grouping by date — fixing an off-by-one bug where appointments were attributed to the wrong day.</p>
+                </div>
+            </div>
+            <div class="flex gap-4">
+                <div style="width:32px;height:32px;border-radius:50%;background:rgba(6,182,212,0.15);border:1px solid rgba(6,182,212,0.35);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.8rem;font-weight:700;color:#67e8f9">4</div>
+                <div>
+                    <h3 class="text-white font-semibold mb-1">Strict lead definition + deduplication</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Enforced a business rule: a contact counts as a lead only if they have a name, email <em>and</em> phone number. Added deduplication to prevent the same contact appearing in multiple funnels.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- What I built -->
+<section style="background:#0a0a0f;padding:48px 24px">
+    <div class="max-w-4xl mx-auto">
+        <div class="section-label">What I Built</div>
+        <h2 class="text-2xl font-bold text-white mb-6">Dashboard metrics & API endpoints</h2>
+        <div class="grid md:grid-cols-2 gap-4">
+            <div class="feature-card">
+                <h3 class="text-white font-semibold mb-2">⚡ Speed to Lead</h3>
+                <p class="text-slate-400 text-sm">Time from lead creation to first contact — broken down by rep and timeframe.</p>
+            </div>
+            <div class="feature-card">
+                <h3 class="text-white font-semibold mb-2">📅 Lead → Booking Rate</h3>
+                <p class="text-slate-400 text-sm">Conversion from qualified lead to booked appointment, with timeframe switching.</p>
+            </div>
+            <div class="feature-card">
+                <h3 class="text-white font-semibold mb-2">✅ Booking → Close Rate</h3>
+                <p class="text-slate-400 text-sm">What share of booked appointments result in a closed deal.</p>
+            </div>
+            <div class="feature-card">
+                <h3 class="text-white font-semibold mb-2">📈 Sales Velocity</h3>
+                <p class="text-slate-400 text-sm">Average time from first contact to closed deal, segmented by rep.</p>
+            </div>
+            <div class="feature-card">
+                <h3 class="text-white font-semibold mb-2">🎯 Show-up Rate</h3>
+                <p class="text-slate-400 text-sm">Ratio of appointments attended vs booked, with no-show tracking.</p>
+            </div>
+            <div class="feature-card">
+                <h3 class="text-white font-semibold mb-2">🧭 Attribution View</h3>
+                <p class="text-slate-400 text-sm">Lead source attribution across campaigns, channels, and ad sources pulled from GHL pipeline data.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Hard problems -->
+<section style="background:#0d0d14;padding:48px 24px">
+    <div class="max-w-4xl mx-auto">
+        <div class="section-label">Hard Problems Solved</div>
+        <h2 class="text-2xl font-bold text-white mb-6">The silent bugs that skewed reporting</h2>
+        <div class="space-y-6">
+            <div class="glass rounded-xl p-6">
+                <h3 class="text-white font-semibold mb-2">Silent under-counting from API pagination</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">The GHL v2 API uses offset-based pagination internally and will silently truncate results when a query spans a large date range. Without cursor-based pagination and an explicit early-exit check, dashboards that look correct on small date ranges will under-report on weekly or monthly views — and the client would never know.</p>
+            </div>
+            <div class="glass rounded-xl p-6">
+                <h3 class="text-white font-semibold mb-2">Timezone off-by-one in date-range attribution</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">GHL returns timestamps in UTC. When grouping appointments by day for a location in US Eastern time, an appointment at 11pm UTC on Monday is actually 6pm Monday Eastern — but without timezone conversion it lands on Tuesday in the reporting. Fixing this required reading each location's timezone from the API, caching it, and converting before any date arithmetic.</p>
+            </div>
+            <div class="glass rounded-xl p-6">
+                <h3 class="text-white font-semibold mb-2">Duplicate contacts inflating funnel counts</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">GHL creates a new contact record every time a lead comes in through a different channel, meaning the same person could appear in the funnel multiple times. Added deduplication on email + phone before counting, with the business-rule filter (name + email + phone all required) to distinguish real leads from partial form fills.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TODO: uncomment when blurred screenshot is ready
+<section style="background:#0a0a0f;padding:48px 24px">
+    <div class="max-w-4xl mx-auto">
+        <div class="section-label">Screenshots</div>
+        <img src="../screenshots/ghl-dashboard.jpg" alt="Dashboard screenshot (redacted)" class="w-full rounded-2xl" loading="lazy">
+    </div>
+</section>
+-->
+
+<!-- Outcome -->
+<section style="background:#0d0d14;padding:48px 24px">
+    <div class="max-w-4xl mx-auto">
+        <div class="section-label">Outcome</div>
+        <h2 class="text-2xl font-bold text-white mb-4">What was delivered</h2>
+        <ul class="space-y-3 text-slate-400">
+            <li class="flex gap-3"><span class="text-cyan-400 mt-0.5">▸</span>A real-time KPI dashboard giving the agency full funnel visibility across all their GHL locations</li>
+            <li class="flex gap-3"><span class="text-cyan-400 mt-0.5">▸</span>Fixed silent under-counting that had previously skewed weekly and monthly reports</li>
+            <li class="flex gap-3"><span class="text-cyan-400 mt-0.5">▸</span>Timezone-correct date attribution — no more appointments landing on the wrong day</li>
+            <li class="flex gap-3"><span class="text-cyan-400 mt-0.5">▸</span>Deployed as a serverless Vercel project — no infrastructure to manage, auto-scales with traffic</li>
+        </ul>
+    </div>
+</section>
+
+<!-- Back -->
+<section style="background:#0a0a0f;padding:48px 24px">
+    <div class="max-w-4xl mx-auto flex flex-wrap items-center justify-between gap-4">
+        <a href="../index.html#projects" class="btn-outline">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+            Back to Projects
+        </a>
+        <a href="mailto:usmanramzan434@gmail.com" style="display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:10px;background:linear-gradient(135deg,#4f46e5,#6366f1);color:#fff;font-weight:600;font-size:0.88rem;text-decoration:none">
+            Discuss a similar project →
+        </a>
+    </div>
+</section>
+
+<footer style="padding:24px;border-top:1px solid rgba(255,255,255,0.05);text-align:center">
+    <p class="text-slate-600 text-sm">© 2025 Usman Ramzan · <a href="../index.html" class="hover:text-slate-400 transition-colors">Portfolio</a></p>
+</footer>
+
+</body>
+</html>

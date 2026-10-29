@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insurance Sales CRM Rebuild — Case Study · Usman Ramzan</title>
+    <meta name="description" content="How I audited and rebuilt a live insurance sales CRM from scratch as sole developer — 104-field dynamic form, 59-state workflow engine, 198-permission RBAC.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; background: #0a0a0f; color: #e2e8f0; overflow-x: hidden; }
+        .grad-text { background: linear-gradient(135deg, #a5b4fc 0%, #818cf8 40%, #06b6d4 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .glass { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); backdrop-filter: blur(12px); }
+        .glass-hover { transition: all 0.3s ease; }
+        .glass-hover:hover { background: rgba(255,255,255,0.07); border-color: rgba(99,102,241,0.4); transform: translateY(-2px); }
+        .section-label { display: inline-flex; align-items: center; gap: 8px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #818cf8; margin-bottom: 1rem; }
+        .section-label::before { content: ''; display: block; width: 24px; height: 2px; background: #818cf8; border-radius: 2px; }
+        .tech-tag { font-size: 0.72rem; font-weight: 500; padding: 3px 10px; border-radius: 6px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #94a3b8; }
+        .skill-tag { display: inline-block; padding: 4px 12px; border-radius: 9999px; font-size: 0.78rem; font-weight: 500; background: rgba(99,102,241,0.12); border: 1px solid rgba(99,102,241,0.25); color: #a5b4fc; }
+        .btn-outline { display: inline-flex; align-items: center; gap: 8px; padding: 10px 22px; border-radius: 10px; background: transparent; color: #a5b4fc; font-weight: 600; font-size: 0.88rem; border: 1px solid rgba(99,102,241,0.4); cursor: pointer; text-decoration: none; transition: all 0.25s; }
+        .btn-outline:hover { background: rgba(99,102,241,0.1); border-color: #6366f1; color: #c7d2fe; }
+        .feature-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; padding: 20px; }
+        .stat-card { background: rgba(99,102,241,0.08); border: 1px solid rgba(99,102,241,0.2); border-radius: 14px; padding: 24px; text-align: center; }
+        .stat-num { font-size: 2rem; font-weight: 800; background: linear-gradient(135deg, #e0e7ff, #a5b4fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
+    </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="fixed top-0 left-0 right-0 z-50 px-6 py-4 backdrop-blur-md" style="background:rgba(10,10,15,0.9);border-bottom:1px solid rgba(255,255,255,0.05)">
+    <div class="max-w-4xl mx-auto flex items-center justify-between">
+        <a href="../index.html" class="text-white font-bold text-lg tracking-tight">
+            <span class="grad-text">UR</span><span class="text-slate-400 font-light">.</span>dev
+        </a>
+        <a href="../index.html#projects" class="btn-outline text-sm py-2 px-4">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+            Back to Projects
+        </a>
+    </div>
+</nav>
+
+<div style="height:72px"></div>
+
+<!-- Hero -->
+<section style="background:radial-gradient(ellipse 80% 50% at 50% 0%, rgba(99,102,241,0.18) 0%, transparent 70%), #0a0a0f; padding: 80px 24px 60px">
+    <div class="max-w-4xl mx-auto">
+        <div class="flex flex-wrap gap-2 mb-6">
+            <span class="skill-tag">CRM & GHL</span>
+            <span style="display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:9999px;font-size:0.75rem;font-weight:600;background:rgba(100,116,139,0.12);border:1px solid rgba(100,116,139,0.25);color:#94a3b8">Private / Client Work</span>
+            <span style="display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:9999px;font-size:0.75rem;font-weight:600;background:rgba(234,179,8,0.12);border:1px solid rgba(234,179,8,0.25);color:#fde047">★ Featured Case Study</span>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-extrabold text-white leading-tight mb-4">
+            Insurance Sales CRM<br><span class="grad-text">— Full Rebuild</span>
+        </h1>
+        <p class="text-slate-400 text-lg max-w-2xl mb-8">Ground-up rebuild of a client's live insurance sales & lead-management portal on a modern stack. Delivered as sole developer, from audit to production-ready code.</p>
+        <div class="flex flex-wrap gap-3 text-sm text-slate-500">
+            <span>Role: <strong class="text-slate-300">Sole Developer</strong></span>
+            <span>·</span>
+            <span>Client: <strong class="text-slate-300">Insurance industry (private)</strong></span>
+            <!-- TODO: add timeframe — add a <span> here when known -->
+        </div>
+    </div>
+</section>
+
+<!-- Key stats -->
+<section style="background:#0d0d14;padding:48px 24px">
+    <div class="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="stat-card"><div class="stat-num">104</div><div class="text-slate-400 text-sm mt-1">Fields in lead form</div></div>
+        <div class="stat-card"><div class="stat-num">59</div><div class="text-slate-400 text-sm mt-1">Disposition states</div></div>
+        <div class="stat-card"><div class="stat-num">198</div><div class="text-slate-400 text-sm mt-1">RBAC permissions</div></div>
+        <div class="stat-card"><div class="stat-num">13</div><div class="text-slate-400 text-sm mt-1">Sections with role access</div></div>
+    </div>
+</section>
+
+<!-- Stack -->
+<section style="background:#0a0a0f;padding:48px 24px 32px">
+    <div class="max-w-4xl mx-auto">
+        <div class="section-label">Stack</div>
+        <div class="flex flex-wrap gap-2">
+            <span class="tech-tag">React</span><span class="tech-tag">Vite</span><span class="tech-tag">Node.js</span><span class="tech-tag">Express</span><span class="tech-tag">PostgreSQL</span><span class="tech-tag">Supabase</span><span class="tech-tag">RBAC</span><span class="tech-tag">Playwright</span><span class="tech-tag">Claude Code</span>
+        </div>
+    </div>
+</section>
+
+<!-- The problem -->
+<section style="background:#0a0a0f;padding:32px 24px 48px">
+    <div class="max-w-4xl mx-auto">
+        <div class="section-label">The Problem</div>
+        <h2 class="text-2xl font-bold text-white mb-4">A live production CRM with no documentation</h2>
+        <p class="text-slate-400 leading-relaxed mb-4">The client had a legacy insurance sales portal running in production — handling real agents, real leads, and real revenue — but with no technical documentation, no tests, and no clean separation of concerns. They needed a complete rebuild on a modern stack without interrupting daily operations.</p>
+        <p class="text-slate-400 leading-relaxed">The challenge: before writing a single line of new code, I needed to understand every screen, every role, every business rule, and every edge case in the existing system — without touching its data.</p>
+    </div>
+</section>
+
+<!-- My approach -->
+<section style="background:#0d0d14;padding:48px 24px">
+    <div class="max-w-4xl mx-auto">
+        <div class="section-label">My Approach</div>
+        <h2 class="text-2xl font-bold text-white mb-6">Read-only audit first, rebuild second</h2>
+        <div class="space-y-4">
+            <div class="flex gap-4">
+                <div style="width:32px;height:32px;border-radius:50%;background:rgba(99,102,241,0.2);border:1px solid rgba(99,102,241,0.4);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.8rem;font-weight:700;color:#a5b4fc">1</div>
+                <div>
+                    <h3 class="text-white font-semibold mb-1">Read-only audit with Claude Code + Playwright MCP</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Used Claude Code with the Playwright MCP server to crawl the live CRM in a strictly read-only mode — documenting every module, form field, state transition, and role restriction. Zero writes to production data.</p>
+                </div>
+            </div>
+            <div class="flex gap-4">
+                <div style="width:32px;height:32px;border-radius:50%;background:rgba(99,102,241,0.2);border:1px solid rgba(99,102,241,0.4);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.8rem;font-weight:700;color:#a5b4fc">2</div>
+                <div>
+                    <h3 class="text-white font-semibold mb-1">Spec before code</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Translated audit findings into a full schema, RBAC matrix, and feature spec. Defined the repository interface pattern upfront so the data layer (in-memory → Supabase) could be swapped without touching business logic.</p>
+                </div>
+            </div>
+            <div class="flex gap-4">
+                <div style="width:32px;height:32px;border-radius:50%;background:rgba(99,102,241,0.2);border:1px solid rgba(99,102,241,0.4);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.8rem;font-weight:700;color:#a5b4fc">3</div>
+                <div>
+                    <h3 class="text-white font-semibold mb-1">Incremental, testable implementation</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Built module by module on a feature branch, with every permission, form field, and state machine verified against the documented spec before merging.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- What I built -->
+<section style="background:#0a0a0f;padding:48px 24px">
+    <div class="max-w-4xl mx-auto">
+        <div class="section-label">What I Built</div>
+        <h2 class="text-2xl font-bold text-white mb-6">Full-featured insurance CRM</h2>
+        <div class="grid md:grid-cols-2 gap-4">
+            <div class="feature-card">
+                <div class="text-2xl mb-2">📋</div>
+                <h3 class="text-white font-semibold mb-1">104-Field Dynamic Lead Form</h3>
+                <p class="text-slate-400 text-sm">Form fields change based on lead type — the form adapts its structure dynamically without page reload.</p>
+            </div>
+            <div class="feature-card">
+                <div class="text-2xl mb-2">🔄</div>
+                <h3 class="text-white font-semibold mb-1">59-State Disposition Workflow Engine</h3>
+                <p class="text-slate-400 text-sm">Each state has defined transitions and per-role visibility — agents only see the states they can move leads into.</p>
+            </div>
+            <div class="feature-card">
+                <div class="text-2xl mb-2">🔐</div>
+                <h3 class="text-white font-semibold mb-1">198-Permission RBAC</h3>
+                <p class="text-slate-400 text-sm">198 discrete permissions mapped across 13 sections, with role-based lead-visibility windows and time-restricted access.</p>
+            </div>
+            <div class="feature-card">
+                <div class="text-2xl mb-2">🏢</div>
+                <h3 class="text-white font-semibold mb-1">Multi-Tenant Agency Structure</h3>
+                <p class="text-slate-400 text-sm">Multiple agencies under one platform, each with isolated data, their own roles, and cross-agency admin capabilities.</p>
+            </div>
+            <div class="feature-card">
+                <div class="text-2xl mb-2">📦</div>
+                <h3 class="text-white font-semibold mb-1">3-Level Product Catalogue</h3>
+                <p class="text-slate-400 text-sm">Carrier → Plan → Product hierarchy with a finance ledger and full audit history for every product change.</p>
+            </div>
+            <div class="feature-card">
+                <div class="text-2xl mb-2">💬</div>
+                <h3 class="text-white font-semibold mb-1">Internal Chat & Audit History</h3>
+                <p class="text-slate-400 text-sm">Built-in messaging tables and field-level audit history — every change to a lead is timestamped and attributed.</p>
+            </div>
+            <div class="feature-card md:col-span-2">
+                <div class="text-2xl mb-2">🔄</div>
+                <h3 class="text-white font-semibold mb-1">Repository Pattern (In-Memory → Supabase)</h3>
+                <p class="text-slate-400 text-sm">The entire data layer sits behind a repository interface. The in-memory store used during development swaps to a Supabase/PostgreSQL backend without any changes to business logic — a clean migration path with zero risk to existing code.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Hard problems -->
+<section style="background:#0d0d14;padding:48px 24px">
+    <div class="max-w-4xl mx-auto">
+        <div class="section-label">Hard Problems Solved</div>
+        <h2 class="text-2xl font-bold text-white mb-6">What made this difficult</h2>
+        <div class="space-y-6">
+            <div class="glass rounded-xl p-6">
+                <h3 class="text-white font-semibold mb-2">Recovering undocumented business logic from a live system safely</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">The biggest risk was misunderstanding an undocumented rule — a disposition transition that's only allowed for certain carriers on certain plans, or a permission that silently fails rather than showing an error. Using Claude Code with Playwright in read-only mode let me systematically click through every state in the live system and build a ground-truth spec before touching code.</p>
+            </div>
+            <div class="glass rounded-xl p-6">
+                <h3 class="text-white font-semibold mb-2">Designing 198 permissions without making it unmaintainable</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">At 198 permissions across 13 sections, a flat permission table becomes a maintenance nightmare. The solution was a structured matrix: sections → resources → actions, with a role-inheritance model so adding a new section doesn't require manually granting 15 new permissions to every existing role.</p>
+            </div>
+            <div class="glass rounded-xl p-6">
+                <h3 class="text-white font-semibold mb-2">Keeping the data layer portable without over-engineering</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">The repository pattern lets the app run entirely in-memory during development and CI, with a deterministic swap to Supabase for production — no environment-specific branches, no mocking infrastructure, no test database setup. The interface is thin enough that the Supabase implementation is a drop-in.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TODO: add screenshot section — uncomment and replace src when a blurred/redacted screenshot is ready
+<section style="background:#0a0a0f;padding:48px 24px">
+    <div class="max-w-4xl mx-auto">
+        <div class="section-label">Screenshots</div>
+        <img src="../screenshots/crm-rebuild.jpg" alt="CRM dashboard screenshot (redacted)" class="w-full rounded-2xl" loading="lazy">
+    </div>
+</section>
+-->
+
+<!-- Outcome -->
+<section style="background:#0d0d14;padding:48px 24px">
+    <div class="max-w-4xl mx-auto">
+        <div class="section-label">Outcome</div>
+        <h2 class="text-2xl font-bold text-white mb-4">What was delivered</h2>
+        <ul class="space-y-3 text-slate-400">
+            <li class="flex gap-3"><span class="text-indigo-400 mt-0.5">▸</span>A fully documented, testable CRM codebase replacing an undocumented legacy system</li>
+            <li class="flex gap-3"><span class="text-indigo-400 mt-0.5">▸</span>104-field dynamic lead form, 59-state workflow engine, and 198-permission RBAC — all running on the new stack</li>
+            <li class="flex gap-3"><span class="text-indigo-400 mt-0.5">▸</span>Zero writes to live production data during the audit and development phase</li>
+            <li class="flex gap-3"><span class="text-indigo-400 mt-0.5">▸</span>A portable data layer ready to connect to Supabase without code changes</li>
+        </ul>
+    </div>
+</section>
+
+<!-- Back -->
+<section style="background:#0a0a0f;padding:48px 24px">
+    <div class="max-w-4xl mx-auto flex flex-wrap items-center justify-between gap-4">
+        <a href="../index.html#projects" class="btn-outline">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+            Back to Projects
+        </a>
+        <a href="mailto:usmanramzan434@gmail.com" style="display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:10px;background:linear-gradient(135deg,#4f46e5,#6366f1);color:#fff;font-weight:600;font-size:0.88rem;text-decoration:none">
+            Discuss a similar project →
+        </a>
+    </div>
+</section>
+
+<footer style="padding:24px;border-top:1px solid rgba(255,255,255,0.05);text-align:center">
+    <p class="text-slate-600 text-sm">© 2025 Usman Ramzan · <a href="../index.html" class="hover:text-slate-400 transition-colors">Portfolio</a></p>
+</footer>
+
+</body>
+</html>
