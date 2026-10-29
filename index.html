@@ -297,11 +297,15 @@
     }
     .step-arrow { flex: 0 0 auto; display: flex; align-items: center; padding-top: 22px; }
     .step-arrow svg { color: #4338ca; }
-    @media (max-width: 767px) {
+    @media (max-width: 639px) {
       .step-flow { flex-direction: column; gap: 0; }
-      .step-node { flex-direction: row; align-items: flex-start; gap: 12px; width: 100%; }
+      .step-node { flex-direction: row; align-items: flex-start; gap: 14px; width: 100%; margin-bottom: 16px; }
+      .step-node-text { text-align: left; }
       .step-arrow { display: none; }
       .step-circle { flex-shrink: 0; margin-top: 2px; }
+    }
+    @media (min-width: 640px) {
+      .step-node-text { text-align: center; }
     }
 
     /* Form inputs */
@@ -1372,9 +1376,9 @@ function renderAutomationFeatured(f) {
     return `
       <div class="step-node">
         <div class="step-circle" aria-hidden="true">${s.n}</div>
-        <div class="text-center md:text-center mt-2 px-1 flex-1">
+        <div class="step-node-text mt-2 px-1 flex-1">
           <div class="text-white font-semibold text-xs mb-1">${esc(s.label)}</div>
-          <div class="text-slate-500 text-xs leading-snug hidden sm:block">${esc(s.desc)}</div>
+          <div class="text-slate-500 text-xs leading-snug">${esc(s.desc)}</div>
         </div>
       </div>
       ${!isLast ? `<div class="step-arrow" aria-hidden="true">
