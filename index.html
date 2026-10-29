@@ -65,13 +65,14 @@
   <style>
     /* ── Hero layout: text | standing portrait | stats ── */
     .hero-grid { display: grid; grid-template-columns: minmax(0,1fr) 250px 230px; gap: 40px; align-items: center; }
-    .hero-stand { position: relative; height: 560px; display: flex; justify-content: center; align-items: flex-end; }
-    .hero-stand picture { position: relative; z-index: 1; height: 100%; display: flex; align-items: flex-end; }
-    .hero-stand img { height: 100%; width: auto; filter: drop-shadow(0 24px 40px rgba(0,0,0,.55)); }
-    .stand-halo { position: absolute; left: 50%; top: 6%; width: 420px; height: 420px; transform: translateX(-50%); border-radius: 50%;
-      background: radial-gradient(closest-side, rgba(99,102,241,.38), rgba(99,102,241,.08) 60%, transparent); z-index: 0; }
-    .stand-floor { position: absolute; left: 50%; bottom: -26px; width: 300px; height: 60px; transform: translateX(-50%); border-radius: 50%;
-      background: radial-gradient(closest-side, rgba(99,102,241,.5), transparent); z-index: 0; }
+    .hero-stand { position: relative; height: 560px; border-radius: 30px; overflow: hidden;
+      background: linear-gradient(180deg, #312e81 0%, #1e1b4b 45%, #0f172a 90%);
+      border: 1px solid rgba(129,140,248,.25); box-shadow: 0 30px 70px -25px rgba(0,0,0,.8);
+      display: flex; justify-content: center; align-items: flex-end; }
+    .hero-stand:before { content: ""; position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(70% 45% at 50% 22%, rgba(129,140,248,.28), transparent 70%); }
+    .hero-stand picture { position: relative; z-index: 1; height: 97%; display: flex; align-items: flex-end; }
+    .hero-stand img { height: 100%; width: auto; margin-bottom: -4px; filter: drop-shadow(0 18px 30px rgba(0,0,0,.45)); }
     .hero-stats { display: grid; gap: 14px; }
     @media (max-width: 1180px) {
       .hero-grid { grid-template-columns: minmax(0,1fr) 220px 210px; gap: 28px; }
@@ -84,8 +85,7 @@
     }
     @media (max-width: 640px) {
       .hero-grid { grid-template-columns: 1fr; gap: 24px; }
-      .hero-stand { height: 400px; }
-      .stand-halo { width: 320px; height: 320px; }
+      .hero-stand { height: 420px; max-width: 300px; width: 100%; margin: 0 auto; }
       .hero-stats { grid-template-columns: 1fr 1fr; }
     }
 
@@ -462,8 +462,6 @@
 
       <!-- Middle: standing portrait -->
       <div class="hero-stand">
-        <div class="stand-halo" aria-hidden="true"></div>
-        <div class="stand-floor" aria-hidden="true"></div>
         <picture>
           <source srcset="assets/usman-standing.webp" type="image/webp" />
           <img src="assets/usman-standing.png" alt="Usman Ramzan, Full Stack Developer and AI Automation Engineer" width="332" height="986" fetchpriority="high" />
