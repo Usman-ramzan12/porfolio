@@ -475,9 +475,17 @@
     <div class="grid lg:grid-cols-2 gap-14 items-center">
 
       <!-- Code card -->
-      <div class="relative fade-up">
-        <div class="glass rounded-3xl p-8 relative overflow-hidden">
-          <pre class="text-xs font-mono leading-7 text-slate-500 overflow-x-auto"><code><span class="text-indigo-400">const</span> <span class="text-cyan-400">developer</span> <span class="text-slate-500">=</span> <span class="text-slate-400">{</span>
+      <div class="fade-up">
+        <div class="glass rounded-3xl overflow-hidden">
+          <!-- Badge row inside card -->
+          <div class="flex items-center justify-between flex-wrap gap-2 px-8 pt-6 pb-0">
+            <span class="badge badge-green text-xs">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" aria-hidden="true"></span>
+              Currently at NDT Group
+            </span>
+            <span class="badge badge-purple text-xs">Open to Freelance</span>
+          </div>
+          <pre class="text-xs font-mono leading-7 text-slate-500 overflow-x-auto px-8 pt-5 pb-8"><code><span class="text-indigo-400">const</span> <span class="text-cyan-400">developer</span> <span class="text-slate-500">=</span> <span class="text-slate-400">{</span>
   <span class="text-purple-400">name</span><span class="text-slate-500">:</span>      <span class="text-emerald-400">'Usman Ramzan'</span><span class="text-slate-500">,</span>
   <span class="text-purple-400">title</span><span class="text-slate-500">:</span>     <span class="text-emerald-400">'Full Stack + AI'</span><span class="text-slate-500">,</span>
   <span class="text-purple-400">location</span><span class="text-slate-500">:</span>  <span class="text-emerald-400">'Lahore, PK · Remote'</span><span class="text-slate-500">,</span>
@@ -488,11 +496,6 @@
   <span class="text-slate-400">]</span><span class="text-slate-500">,</span>
   <span class="text-purple-400">available</span><span class="text-slate-500">:</span> <span class="text-indigo-400">true</span>
 <span class="text-slate-400">}</span></code></pre>
-          <div class="absolute -top-3 -right-3 badge badge-purple text-xs">Open to Freelance</div>
-          <div class="absolute -bottom-3 -left-3 badge badge-green text-xs">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" aria-hidden="true"></span>
-            Currently at NDT Group
-          </div>
         </div>
       </div>
 
