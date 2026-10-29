@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Website-Outreach Automation — Case Study · Usman Ramzan</title>
+    <meta name="description" content="How I built an end-to-end Claude-powered system that finds businesses with no website, builds them a preview site in GoHighLevel, and runs email outreach automatically.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; background: #0a0a0f; color: #e2e8f0; overflow-x: hidden; }
+        .grad-text { background: linear-gradient(135deg, #a5b4fc 0%, #818cf8 40%, #06b6d4 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .glass { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); backdrop-filter: blur(12px); }
+        .section-label { display: inline-flex; align-items: center; gap: 8px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #818cf8; margin-bottom: 1rem; }
+        .section-label::before { content: ''; display: block; width: 24px; height: 2px; background: #818cf8; border-radius: 2px; }
+        .tech-tag { font-size: 0.72rem; font-weight: 500; padding: 3px 10px; border-radius: 6px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #94a3b8; }
+        .skill-tag { display: inline-block; padding: 4px 12px; border-radius: 9999px; font-size: 0.78rem; font-weight: 500; background: rgba(99,102,241,0.12); border: 1px solid rgba(99,102,241,0.25); color: #a5b4fc; }
+        .btn-outline { display: inline-flex; align-items: center; gap: 8px; padding: 10px 22px; border-radius: 10px; background: transparent; color: #a5b4fc; font-weight: 600; font-size: 0.88rem; border: 1px solid rgba(99,102,241,0.4); cursor: pointer; text-decoration: none; transition: all 0.25s; }
+        .btn-outline:hover { background: rgba(99,102,241,0.1); border-color: #6366f1; color: #c7d2fe; }
+        .feature-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; padding: 20px; }
+        /* Step flow */
+        .step-node { display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 120px; }
+        .step-circle { width: 48px; height: 48px; border-radius: 50%; background: rgba(139,92,246,0.2); border: 2px solid rgba(139,92,246,0.5); display: flex; align-items: center; justify-content: center; font-weight: 700; color: #c4b5fd; font-size: 1.1rem; flex-shrink: 0; }
+        .step-connector { flex: 1; height: 2px; background: linear-gradient(90deg, rgba(139,92,246,0.5), rgba(99,102,241,0.3)); margin-top: 23px; min-width: 16px; }
+        @media (max-width: 640px) {
+            .step-flow-desktop { display: none !important; }
+            .step-flow-mobile { display: flex !important; }
+        }
+        @media (min-width: 641px) {
+            .step-flow-desktop { display: flex !important; }
+            .step-flow-mobile { display: none !important; }
+        }
+        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
+    </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="fixed top-0 left-0 right-0 z-50 px-6 py-4 backdrop-blur-md" style="background:rgba(10,10,15,0.9);border-bottom:1px solid rgba(255,255,255,0.05)">
+    <div class="max-w-4xl mx-auto flex items-center justify-between">
+        <a href="../index.html" class="text-white font-bold text-lg tracking-tight">
+            <span class="grad-text">UR</span><span class="text-slate-400 font-light">.</span>dev
+        </a>
+        <a href="../index.html#projects" class="btn-outline text-sm py-2 px-4">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+            Back to Projects
+        </a>
+    </div>
+</nav>
+
+<div style="height:72px"></div>
+
+<!-- Hero -->
+<section style="background:radial-gradient(ellipse 80% 50% at 50% 0%, rgba(139,92,246,0.18) 0%, transparent 70%), #0a0a0f; padding: 80px 24px 60px">
+    <div class="max-w-4xl mx-auto">
+        <div class="flex flex-wrap gap-2 mb-6">
+            <span class="skill-tag" style="background:rgba(139,92,246,0.12);border-color:rgba(139,92,246,0.3);color:#c4b5fd">AI & Automation</span>
+            <span style="display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:9999px;font-size:0.75rem;font-weight:600;background:rgba(100,116,139,0.12);border:1px solid rgba(100,116,139,0.25);color:#94a3b8">Private / Client Work</span>
+            <span style="display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:9999px;font-size:0.75rem;font-weight:600;background:rgba(234,179,8,0.12);border:1px solid rgba(234,179,8,0.25);color:#fde047">★ Featured Case Study</span>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-extrabold text-white leading-tight mb-4">
+            AI Website-Outreach<br><span class="grad-text">Automation Engine</span>
+        </h1>
+        <p class="text-slate-400 text-lg max-w-2xl mb-8">End-to-end Claude-powered system that finds local businesses with no website, builds each one a free preview site, hosts it in GoHighLevel, and runs personalised email outreach with automated follow-ups — packaged as a reusable Claude skill deployed for client agencies.</p>
+        <div class="flex flex-wrap gap-3 text-sm text-slate-500">
+            <span>Role: <strong class="text-slate-300">Builder & Deployer</strong></span>
+            <span>·</span>
+            <span>Deployed for: <strong class="text-slate-300">2 client agencies (private)</strong></span>
+            <span>·</span>
+            <span>Timeframe: <strong class="text-slate-300">TODO: add timeframe</strong></span>
+        </div>
+    </div>
+</section>
+
+<!-- Facts strip -->
+<section style="background:#0d0d14;padding:40px 24px">
+    <div class="max-w-4xl mx-auto">
+        <div class="flex flex-wrap gap-3 justify-center">
+            <span style="display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:9999px;background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.25);color:#c4b5fd;font-size:0.82rem;font-weight:500">
+                🛠️ Packaged as a reusable Claude skill
+            </span>
+            <span style="display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:9999px;background:rgba(99,102,241,0.1);border:1px solid rgba(99,102,241,0.25);color:#a5b4fc;font-size:0.82rem;font-weight:500">
+                🚀 Deployed for 2 client agencies
+            </span>
+            <span style="display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:9999px;background:rgba(6,182,212,0.1);border:1px solid rgba(6,182,212,0.25);color:#67e8f9;font-size:0.82rem;font-weight:500">
+                📖 Human-readable SOP so clients can run it themselves
+            </span>
+        </div>
+    </div>
+</section>
+
+<!-- Stack -->
+<section style="background:#0a0a0f;padding:40px 24px 32px">
+    <div class="max-w-4xl mx-auto">
+        <div class="section-label">Stack</div>
+        <div class="flex flex-wrap gap-2">
+            <span class="tech-tag">Claude</span><span class="tech-tag">Claude Skills</span><span class="tech-tag">GoHighLevel</span><span class="tech-tag">Email Automation</span><span class="tech-tag">Google Maps data</span>
+        </div>
+    </div>
+</section>
+
+<!-- The problem -->
+<section style="background:#0a0a0f;padding:32px 24px 48px">
+    <div class="max-w-4xl mx-auto">
+        <div class="section-label">The Problem</div>
+        <h2 class="text-2xl font-bold text-white mb-4">Web design agencies spend hours doing manual prospecting</h2>
+        <p class="text-slate-400 leading-relaxed mb-4">Web design agencies selling to local SMBs face the same problem: finding businesses that genuinely need a website, building a compelling first touchpoint, and following up consistently — is a full-time manual job. Most agencies skip it, or pay a human to do it slowly.</p>
+        <p class="text-slate-400 leading-relaxed">The brief: design a system that handles the entire prospecting-to-outreach pipeline autonomously, only targeting businesses with a public email address (so outreach is permissible and relevant), and package it so client agencies can run it themselves without deep technical knowledge.</p>
+    </div>
+</section>
+
+<!-- How it works — step flow -->
+<section style="background:#0d0d14;padding:48px 24px">
+    <div class="max-w-4xl mx-auto">
+        <div class="section-label">How It Works</div>
+        <h2 class="text-2xl font-bold text-white mb-8">Six-step automated pipeline</h2>
+
+        <!-- Desktop horizontal flow -->
+        <div class="step-flow-desktop" style="align-items:flex-start;gap:0;overflow-x:auto;padding-bottom:8px">
+            <div class="step-node" style="padding:0 8px">
+                <div style="display:flex;align-items:center;width:100%">
+                    <div class="step-circle">1</div>
+                    <div class="step-connector"></div>
+                </div>
+                <div style="text-align:center;margin-top:12px;padding:0 4px">
+                    <div class="text-white font-semibold text-sm mb-1">Find</div>
+                    <div class="text-slate-500 text-xs leading-relaxed">Pull businesses from Google Maps with no website but a public email</div>
+                </div>
+            </div>
+            <div class="step-node" style="padding:0 8px">
+                <div style="display:flex;align-items:center;width:100%">
+                    <div class="step-circle">2</div>
+                    <div class="step-connector"></div>
+                </div>
+                <div style="text-align:center;margin-top:12px;padding:0 4px">
+                    <div class="text-white font-semibold text-sm mb-1">Build</div>
+                    <div class="text-slate-500 text-xs leading-relaxed">Claude generates a premium, on-brand preview website for each business</div>
+                </div>
+            </div>
+            <div class="step-node" style="padding:0 8px">
+                <div style="display:flex;align-items:center;width:100%">
+                    <div class="step-circle">3</div>
+                    <div class="step-connector"></div>
+                </div>
+                <div style="text-align:center;margin-top:12px;padding:0 4px">
+                    <div class="text-white font-semibold text-sm mb-1">Host</div>
+                    <div class="text-slate-500 text-xs leading-relaxed">Publish the site inside GoHighLevel</div>
+                </div>
+            </div>
+            <div class="step-node" style="padding:0 8px">
+                <div style="display:flex;align-items:center;width:100%">
+                    <div class="step-circle">4</div>
+                    <div class="step-connector"></div>
+                </div>
+                <div style="text-align:center;margin-top:12px;padding:0 4px">
+                    <div class="text-white font-semibold text-sm mb-1">Reach out</div>
+                    <div class="text-slate-500 text-xs leading-relaxed">Send a personalised cold email with a link to their new site</div>
+                </div>
+            </div>
+            <div class="step-node" style="padding:0 8px">
+                <div style="display:flex;align-items:center;width:100%">
+                    <div class="step-circle">5</div>
+                    <div class="step-connector"></div>
+                </div>
+                <div style="text-align:center;margin-top:12px;padding:0 4px">
+                    <div class="text-white font-semibold text-sm mb-1">Follow up</div>
+                    <div class="text-slate-500 text-xs leading-relaxed">GHL workflows run timed follow-up sequences automatically</div>
+                </div>
+            </div>
+            <div class="step-node" style="padding:0 8px">
+                <div style="display:flex;align-items:center">
+                    <div class="step-circle">6</div>
+                </div>
+                <div style="text-align:center;margin-top:12px;padding:0 4px">
+                    <div class="text-white font-semibold text-sm mb-1">Repeat</div>
+                    <div class="text-slate-500 text-xs leading-relaxed">Runs on a schedule (~5 sites/day), within a usage budget</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile vertical flow -->
+        <div class="step-flow-mobile" style="flex-direction:column;gap:0">
+            <div style="display:flex;gap:16px;align-items:flex-start;padding-bottom:0">
+                <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0">
+                    <div class="step-circle">1</div>
+                    <div style="width:2px;height:40px;background:rgba(139,92,246,0.4);margin:4px 0"></div>
+                </div>
+                <div style="padding-top:8px;padding-bottom:16px">
+                    <div class="text-white font-semibold text-sm mb-1">Find</div>
+                    <div class="text-slate-500 text-sm">Pull businesses from Google Maps with no website but a public email</div>
+                </div>
+            </div>
+            <div style="display:flex;gap:16px;align-items:flex-start">
+                <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0">
+                    <div class="step-circle">2</div>
+                    <div style="width:2px;height:40px;background:rgba(139,92,246,0.4);margin:4px 0"></div>
+                </div>
+                <div style="padding-top:8px;padding-bottom:16px">
+                    <div class="text-white font-semibold text-sm mb-1">Build</div>
+                    <div class="text-slate-500 text-sm">Claude generates a premium, on-brand preview website for each business</div>
+                </div>
+            </div>
+            <div style="display:flex;gap:16px;align-items:flex-start">
+                <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0">
+                    <div class="step-circle">3</div>
+                    <div style="width:2px;height:40px;background:rgba(139,92,246,0.4);margin:4px 0"></div>
+                </div>
+                <div style="padding-top:8px;padding-bottom:16px">
+                    <div class="text-white font-semibold text-sm mb-1">Host</div>
+                    <div class="text-slate-500 text-sm">Publish the site inside GoHighLevel</div>
+                </div>
+            </div>
+            <div style="display:flex;gap:16px;align-items:flex-start">
+                <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0">
+                    <div class="step-circle">4</div>
+                    <div style="width:2px;height:40px;background:rgba(139,92,246,0.4);margin:4px 0"></div>
+                </div>
+                <div style="padding-top:8px;padding-bottom:16px">
+                    <div class="text-white font-semibold text-sm mb-1">Reach out</div>
+                    <div class="text-slate-500 text-sm">Send a personalised cold email with a link to their new site</div>
+                </div>
+            </div>
+            <div style="display:flex;gap:16px;align-items:flex-start">
+                <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0">
+                    <div class="step-circle">5</div>
+                    <div style="width:2px;height:40px;background:rgba(139,92,246,0.4);margin:4px 0"></div>
+                </div>
+                <div style="padding-top:8px;padding-bottom:16px">
+                    <div class="text-white font-semibold text-sm mb-1">Follow up</div>
+                    <div class="text-slate-500 text-sm">GHL workflows run timed follow-up sequences automatically</div>
+                </div>
+            </div>
+            <div style="display:flex;gap:16px;align-items:flex-start">
+                <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0">
+                    <div class="step-circle">6</div>
+                </div>
+                <div style="padding-top:8px;padding-bottom:16px">
+                    <div class="text-white font-semibold text-sm mb-1">Repeat</div>
+                    <div class="text-slate-500 text-sm">Runs on a schedule (~5 sites/day per client), within a usage budget</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- What I built -->
+<section style="background:#0a0a0f;padding:48px 24px">
+    <div class="max-w-4xl mx-auto">
+        <div class="section-label">What I Built</div>
+        <h2 class="text-2xl font-bold text-white mb-6">System components</h2>
+        <div class="grid md:grid-cols-2 gap-4">
+            <div class="feature-card">
+                <div class="text-2xl mb-2">🔍</div>
+                <h3 class="text-white font-semibold mb-1">Prospect Discovery</h3>
+                <p class="text-slate-400 text-sm">Queries Google Maps data for local businesses in a target niche/location, filters to those without a website, and verifies a public email is available before adding to the queue.</p>
+            </div>
+            <div class="feature-card">
+                <div class="text-2xl mb-2">🤖</div>
+                <h3 class="text-white font-semibold mb-1">Claude-Powered Site Generation</h3>
+                <p class="text-slate-400 text-sm">For each prospect, Claude generates a complete, on-brand preview website — tailored to the business's name, type, and location. No templates; each site is unique.</p>
+            </div>
+            <div class="feature-card">
+                <div class="text-2xl mb-2">🌐</div>
+                <h3 class="text-white font-semibold mb-1">GHL Hosting & Contact Creation</h3>
+                <p class="text-slate-400 text-sm">The generated site is published inside GoHighLevel and a contact record is created for the business owner — linking the prospect's profile to their preview site.</p>
+            </div>
+            <div class="feature-card">
+                <div class="text-2xl mb-2">📧</div>
+                <h3 class="text-white font-semibold mb-1">Personalised Outreach</h3>
+                <p class="text-slate-400 text-sm">A personalised cold email is sent with a link to the business's unique preview site. The email is generated by Claude — not a template — with the business name and niche woven in naturally.</p>
+            </div>
+            <div class="feature-card">
+                <div class="text-2xl mb-2">🔁</div>
+                <h3 class="text-white font-semibold mb-1">Automated Follow-Up Sequences</h3>
+                <p class="text-slate-400 text-sm">GHL workflows handle timed follow-ups — day 3, day 7, day 14 — so no lead goes cold without a second or third touchpoint, all without human intervention.</p>
+            </div>
+            <div class="feature-card">
+                <div class="text-2xl mb-2">🛠️</div>
+                <h3 class="text-white font-semibold mb-1">Reusable Claude Skill + SOP</h3>
+                <p class="text-slate-400 text-sm">Packaged as a Claude skill so any authorised user can trigger the pipeline with a single command. Accompanied by a human-readable SOP document so clients can operate it independently.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Hard problems -->
+<section style="background:#0d0d14;padding:48px 24px">
+    <div class="max-w-4xl mx-auto">
+        <div class="section-label">Hard Problems Solved</div>
+        <h2 class="text-2xl font-bold text-white mb-6">What makes this non-trivial</h2>
+        <div class="space-y-6">
+            <div class="glass rounded-xl p-6">
+                <h3 class="text-white font-semibold mb-2">Running unattended within a usage budget</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">Generating a full website per prospect is expensive if the pipeline runs unconstrained. The system enforces a daily cap (~5 sites/day per client) and tracks Claude API usage per run, stopping cleanly before hitting limits — so clients can leave it running without surprise bills.</p>
+            </div>
+            <div class="glass rounded-xl p-6">
+                <h3 class="text-white font-semibold mb-2">Only targeting businesses with public emails</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">Cold outreach to businesses is permissible and relevant when the email is publicly listed on a directory or their Google Maps profile. The discovery step verifies this before adding a prospect to the queue — no guessing, no scraped lists, no compliance risk.</p>
+            </div>
+            <div class="glass rounded-xl p-6">
+                <h3 class="text-white font-semibold mb-2">Making it transferable to non-technical clients</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">A Claude skill that only I can operate isn't a product. The system was packaged with a written SOP (what the skill does, what inputs it needs, what to check when it runs), so agency clients can trigger and monitor it themselves without understanding the underlying Claude skill architecture.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Outcome -->
+<section style="background:#0a0a0f;padding:48px 24px">
+    <div class="max-w-4xl mx-auto">
+        <div class="section-label">Outcome</div>
+        <h2 class="text-2xl font-bold text-white mb-4">What was delivered</h2>
+        <ul class="space-y-3 text-slate-400">
+            <li class="flex gap-3"><span class="text-purple-400 mt-0.5">▸</span>An end-to-end prospecting and outreach pipeline running autonomously for 2 client agencies</li>
+            <li class="flex gap-3"><span class="text-purple-400 mt-0.5">▸</span>Each business receives a personalised preview website, not a generic pitch — meaningfully higher engagement than standard cold email</li>
+            <li class="flex gap-3"><span class="text-purple-400 mt-0.5">▸</span>Reusable Claude skill packaging means new agencies can be onboarded without developer involvement</li>
+            <li class="flex gap-3"><span class="text-purple-400 mt-0.5">▸</span>Usage budget guardrails keep costs predictable and prevent runaway API spend</li>
+        </ul>
+    </div>
+</section>
+
+<!-- Back -->
+<section style="background:#0a0a0f;padding:48px 24px">
+    <div class="max-w-4xl mx-auto flex flex-wrap items-center justify-between gap-4">
+        <a href="../index.html#projects" class="btn-outline">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+            Back to Projects
+        </a>
+        <a href="mailto:usmanramzan434@gmail.com" style="display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:10px;background:linear-gradient(135deg,#4f46e5,#6366f1);color:#fff;font-weight:600;font-size:0.88rem;text-decoration:none">
+            Build something similar →
+        </a>
+    </div>
+</section>
+
+<footer style="padding:24px;border-top:1px solid rgba(255,255,255,0.05);text-align:center">
+    <p class="text-slate-600 text-sm">© 2025 Usman Ramzan · <a href="../index.html" class="hover:text-slate-400 transition-colors">Portfolio</a></p>
+</footer>
+
+</body>
+</html>
